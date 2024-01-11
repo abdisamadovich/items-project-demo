@@ -23,4 +23,23 @@ export class HomeComponent {
     // do something
     this.modalVisible = false;
   }
+
+
+  
+
+  public modalVisibleEdit: boolean = false;
+
+  public showModalEdit(): void {
+    this.modalVisibleEdit = true;
+  }
+
+  public hideModalEdit(): void {
+    this.modalVisibleEdit = false;
+  }
+
+  public saveChangesEdit(): void {
+    // do something
+    this.modalVisibleEdit = false;
+  }
 }
+
