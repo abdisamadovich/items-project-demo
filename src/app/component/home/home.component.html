@@ -70,7 +70,7 @@
                     <td>
                         <div class="d-grid gap-2 d-md-block">
                             <button class="btn btn-outline-warning m-1">Edit</button>
-                            <button class="btn btn-outline-danger ">Delete</button>
+                            <button class="btn btn-outline-danger " type="button" (click)="showModal()">Delete</button>
                         </div>
                     </td>
                 </tr>
@@ -95,5 +95,25 @@
           </ul>
         </nav>
       </div>
+  </div>
+</div>
+
+<div *ngIf="modalVisible" class="modal" tabindex="-1" style="display: block;" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" (click)="hideModal()" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="saveChanges()" class="btn btn-primary">Save changes</button>
+        <button type="button" (click)="hideModal()" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
   </div>
 </div>
