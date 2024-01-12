@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { Item } from '../../services/items/item';
+import { ItemService } from '../../services/item.service';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +10,16 @@ import { Component } from '@angular/core';
   templateUrl: './home.component.html',
   styleUrl: './home.component.less'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
+  private itemService : ItemService = inject(ItemService);
+  public items: Item[] = [];
+
+  public ngOnInit(): void {
+    this.itemService.getItems()
+      .subscribe(x =>{
+        this.items = x;
+      })
+  }
   public modalVisible: boolean = false;
 
   public showModal(): void {
@@ -23,9 +34,6 @@ export class HomeComponent {
     // do something
     this.modalVisible = false;
   }
-
-
-  
 
   public modalVisibleEdit: boolean = false;
 

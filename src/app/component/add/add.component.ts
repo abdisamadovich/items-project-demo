@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './add.component.less'
 })
 export class AddComponent {
-
+  
 }
