@@ -2,11 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { Item } from '../../services/items/item';
 import { ItemService } from '../../services/item.service';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule,RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.less'
 })
@@ -18,7 +20,9 @@ export class HomeComponent implements OnInit{
     this.itemService.getItems()
       .subscribe(x =>{
         this.items = x;
-      })
+        console.log(x);
+        
+      });
   }
   public modalVisible: boolean = false;
 

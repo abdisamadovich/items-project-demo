@@ -15,15 +15,15 @@ export class ItemService{
                     result.push(this.toModel(x[i]))                    
                 }
                 return result;
-            }))
+            }));
     }
 
     private toModel(apiModel: ItemModel): Item{
         const result = new Item();
-        result.itemId = apiModel.item_id;
-        result.itemName = apiModel.item_name;
-        result.itemType = apiModel.item_type;
-        result.itemDate = apiModel.item_date;
+        result.itemId = apiModel.itemId;
+        result.itemName = apiModel.itemName;
+        result.itemType = apiModel.itemType;
+        result.itemDate = new Date(apiModel.itemDate)
         return result;
     }
 }

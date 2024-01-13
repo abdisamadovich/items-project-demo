@@ -8,9 +8,6 @@ export class ItemApiService {
     private client: HttpClient = inject(HttpClient);
 
     public getItems(): Observable<ItemModel[]>{
-        return this.client.get<{data : ItemModel[]}>("https://localhost:7274/swagger/index.html")
-            .pipe(map(x => {
-                return x.data;
-            }))
+        return this.client.get<ItemModel[]>("https://localhost:7274/Item");
     }
 }

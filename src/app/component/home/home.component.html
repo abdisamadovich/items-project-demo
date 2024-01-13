@@ -1,4 +1,4 @@
-<!-- <div class="row justify-content-center">
+<div class="row justify-content-center">
     <div class="col col-lg-6">
       <h2><strong>Item List</strong></h2>
       <div>
@@ -96,9 +96,9 @@
         </nav>
       </div>
   </div>
-</div> -->
+</div>
 
-<!-- <div *ngIf="modalVisible" class="modal" tabindex="-1" style="display: block;" role="dialog">
+<div *ngIf="modalVisible" class="modal" tabindex="-1" style="display: block;" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -116,7 +116,7 @@
       </div>
     </div>
   </div>
-</div> -->
+</div>
 
 <div *ngIf="modalVisibleEdit" class="modal" tabindex="-1" style="display: block;" role="dialog" >
   <div class="modal-dialog" role="document">
@@ -150,6 +150,8 @@
   </div>
 </div>
 
-<div *ngfor="let emp of items; let i = index;">
-  <b>{{emp.itemName}}</b>
+
+<div *ngFor="let emp of items; let i = index;">
+  <h1>hello</h1>
+  <h1>{{emp.itemName}}</h1>
 </div>
