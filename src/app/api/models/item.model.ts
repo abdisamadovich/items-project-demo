@@ -2,5 +2,5 @@ export interface ItemModel{
     itemId:number;
     itemName:string;
     itemType:number;
-    itemDate:string
+    itemDate:Date
 }

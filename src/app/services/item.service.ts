@@ -19,10 +19,22 @@ export class ItemService{
             }));
     }
 
+    // Create Item
     public addItem(itemCreate:ItemCreate): Observable<any> {
         return this.itemApiService.addItem(itemCreate);
     }
 
+    // Delete Item
+    public deleteItem(itemId:number):Observable<any>{
+        return this.itemApiService.deleteItem(itemId);
+    }
+
+    //Edit Item
+    public editItem(item:Item):Observable<any>{
+        return this.itemApiService.editItem(item);
+    }
+
+    // Item show
     private toModel(apiModel: ItemModel): Item{
         const result = new Item();
         result.itemId = apiModel.itemId;

@@ -1,3 +1,4 @@
+<!-- Items List -->
 <div class="row justify-content-center">
     <div class="col col-lg-6">
       <h2><strong>Item List</strong></h2>
@@ -21,7 +22,7 @@
                       <td>{{item.itemDate}}</td>
                       <td>
                           <div class="d-grid gap-2 d-md-block">
-                              <button class="btn btn-outline-warning m-1" type="button" (click)="showModalEdit()">Edit</button>
+                              <button class="btn btn-outline-warning m-1" type="button" (click)="showModalEdit(item.itemId)">Edit</button>
                               <button class="btn btn-outline-danger " type="button" (click)="showModal()">Delete</button>
                           </div>
                       </td>
@@ -51,6 +52,8 @@
   </div>
 </div>
 
+
+<!--  -->
 <div *ngIf="modalVisible" class="modal" tabindex="-1" style="display: block;" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -71,6 +74,8 @@
   </div>
 </div>
 
+
+<!-- Edit Items -->
 <div *ngIf="modalVisibleEdit" class="modal" tabindex="-1" style="display: block;" role="dialog" >
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -85,18 +90,18 @@
         <form>
           <div class="form-group">
             <label for="name">Name:</label>
-            <input type="text" class="form-control" id="name" placeholder="Enter your name">
+            <input type="text" class="form-control" id="name" placeholder="Enter your name" [(ngModel)]="itemName" name="itemName">
           </div>
           <div class="form-group">
             <label for="type">Type:</label>
-            <input type="text" class="form-control" id="type" placeholder="Enter the type">
+            <input type="text" class="form-control" id="type" placeholder="Enter the type" [(ngModel)]="itemType" name="itemType">
           </div>
           <div class="form-group mx-sm-3 mb-2">
-            <label for="date" class="sr-only">Date</label>
-              <input type="date" class="form-control" id="date" required>
+            <label for="date" class="sr-only" >Date</label>
+              <input type="date" class="form-control" id="date" required [(ngModel)]="itemDate" name="itemDate">
           </div>
           <button type="button" class="m-1 btn btn-primary" data-dismiss="modal" (click)="hideModalEdit()">No</button>
-          <button class="btn btn-success" type="button" (click)="saveChangesEdit()">Yes</button>
+          <button class="btn btn-success" type="button" (click)="saveEditChanges()">Yes</button>
         </form>
       </div>
     </div>
