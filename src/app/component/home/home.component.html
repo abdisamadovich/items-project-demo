@@ -14,11 +14,11 @@
                   </tr>
               </thead>
               <tbody class="table-group-divider">
-                  <tr>
-                      <th scope="row">1</th>
-                      <td>Islombek</td>
-                      <td>2000</td>
-                      <td>17.12.2000</td>
+                  <tr *ngFor="let item of items;let i = index"> 
+                      <th scope="row">{{i+1}}</th>
+                      <td>{{item.itemName}}</td>
+                      <td>{{item.itemType}}</td>
+                      <td>{{item.itemDate}}</td>
                       <td>
                           <div class="d-grid gap-2 d-md-block">
                               <button class="btn btn-outline-warning m-1" type="button" (click)="showModalEdit()">Edit</button>
@@ -26,54 +26,7 @@
                           </div>
                       </td>
                   </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Javohir</td>
-                    <td>1000</td>
-                    <td>17.12.2004</td>
-                    <td>
-                        <div class="d-grid gap-2 d-md-block">
-                            <button class="btn btn-outline-warning m-1" type="button" (click)="showModalEdit()">Edit</button>
-                            <button class="btn btn-outline-danger " type="button" (click)="showModal()">Delete</button>
-                        </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Sherzod</td>
-                    <td>2000</td>
-                    <td>17.12.2000</td>
-                    <td>
-                        <div class="d-grid gap-2 d-md-block">
-                            <button class="btn btn-outline-warning m-1" type="button" (click)="showModalEdit()">Edit</button>
-                            <button class="btn btn-outline-danger " type="button" (click)="showModal()">Delete</button>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">4</th>
-                    <td>Akobir</td>
-                    <td>2000</td>
-                    <td>17.12.2000</td>
-                    <td>
-                        <div class="d-grid gap-2 d-md-block">
-                            <button class="btn btn-outline-warning m-1" type="button" (click)="showModalEdit()">Edit</button>
-                            <button class="btn btn-outline-danger " type="button" (click)="showModal()">Delete</button>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">5</th>
-                    <td>Og'abek</td>
-                    <td>2000</td>
-                    <td>17.12.2000</td>
-                    <td>
-                        <div class="d-grid gap-2 d-md-block">
-                            <button class="btn btn-outline-warning m-1" type="button" (click)="showModalEdit()">Edit</button>
-                            <button class="btn btn-outline-danger " type="button" (click)="showModal()">Delete</button>
-                        </div>
-                    </td>
-                </tr>
+                  
               </tbody>
           </table>
       </form>
@@ -148,10 +101,4 @@
       </div>
     </div>
   </div>
-</div>
-
-
-<div *ngFor="let emp of items; let i = index;">
-  <h1>hello</h1>
-  <h1>{{emp.itemName}}</h1>
 </div>

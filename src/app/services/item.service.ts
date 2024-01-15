@@ -3,6 +3,7 @@ import { Observable, map } from "rxjs";
 import { Item } from "./items/item";
 import { ItemModel } from "../api/models/item.model";
 import { ItemApiService } from "../api/item.api-service";
+import { ItemCreate } from "./items/itemCreate";
 
 @Injectable({providedIn : "root"})
 export class ItemService{
@@ -16,6 +17,10 @@ export class ItemService{
                 }
                 return result;
             }));
+    }
+
+    public addItem(itemCreate:ItemCreate): Observable<any> {
+        return this.itemApiService.addItem(itemCreate);
     }
 
     private toModel(apiModel: ItemModel): Item{

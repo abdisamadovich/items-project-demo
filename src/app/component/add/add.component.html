@@ -4,17 +4,17 @@
   <form id="add-item-form" class="form-inline mt-3">
     <div class="form-group mx-sm-3 mb-2">
       <label for="name" class="sr-only">Name</label>
-      <input type="text" class="form-control" id="name" placeholder="Name" required>
+      <input type="text" class="form-control" [(ngModel)]="itemName" name="itemName" id="name" placeholder="Name" required>
     </div>
     <div class="form-group mx-sm-3 mb-2">
       <label for="type" class="sr-only">Type</label>
-      <input type="text" class="form-control" id="type" placeholder="Type" required>
+      <input type="text" class="form-control" [(ngModel)]="itemType" name="itemType" id="type" placeholder="Type" required>
     </div>
     <div class="form-group mx-sm-3 mb-2">
       <label for="date" class="sr-only">Date</label>
-        <input type="date" class="form-control" id="date" required>
+        <input type="date" class="form-control"[(ngModel)]="itemDate" name="itemDate" id="date" required>
     </div>
-    <button type="button" class="btn btn-primary mb-2" onclick="addItem()">Add</button>
+    <button type="button" class="btn btn-primary mb-2" (click)="saveAddChanges()">Add</button>
     </form>
   </div>
 </div>
