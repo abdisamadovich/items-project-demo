@@ -1,13 +1,13 @@
 import { Injectable, inject } from "@angular/core";
 import { Observable, map } from "rxjs";
-import { Item } from "./items/item";
+import { Item } from "./models/items/item";
 import { ItemModel } from "../api/models/item/item.model";
 import { ItemApiService } from "../api/item.api-service";
-import { ItemCreate } from "./items/itemCreate";
-import { ItemGetAllModel } from "../api/models/item/ite.getall.model";
-import { ItemGetAll } from "./items/item.getall";
+import { ItemCreate } from "./models/items/itemCreate";
+import { ItemGetAllModel } from "../api/models/item/item.getall.model";
+import { ItemGetAll } from "./models/items/item.getall";
 import { PaginationMetaData } from "../api/models/common/pagination.data.model";
-import { PaginationData } from "./Common/pagination.data";
+import { PaginationData } from "./models/common/pagination.data";
 
 @Injectable({providedIn : "root"})
 export class ItemService{
@@ -41,7 +41,7 @@ export class ItemService{
         return this.itemApiService.editItem(item);
     }
 
-    // Item show
+    //ToModel Function for GetAll
     private toModel(apiModel: ItemModel): Item{
         const result = new Item();
         result.itemId = apiModel.itemId;

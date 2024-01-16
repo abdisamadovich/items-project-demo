@@ -3,12 +3,13 @@ import { Injectable, inject } from "@angular/core";
 import { Observable, catchError } from "rxjs";
 import { ItemModel } from "./models/item/item.model";
 import { ItemCreateModel } from "./models/item/itemCreate.model";
-import { ItemGetAllModel } from "./models/item/ite.getall.model";
+import { ItemGetAllModel } from "./models/item/item.getall.model";
 
 @Injectable({providedIn:"root"})
 export class ItemApiService {
-    private client: HttpClient = inject(HttpClient);
     private apiUrl = "https://localhost:7274/Item"; // API manzili
+    
+    private client: HttpClient = inject(HttpClient);
     private page_size:number=3;
     // Get Items
     public getItems(pageNumber:number): Observable<ItemGetAllModel>{

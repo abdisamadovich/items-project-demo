@@ -1,4 +1,4 @@
-import { PaginationData } from "../Common/pagination.data";
+import { PaginationData } from "../common/pagination.data";
 import { Item } from "./item";
 
 export class ItemGetAll{

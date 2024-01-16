@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
-import { Item } from '../../services/items/item';
+import { Item } from '../../services/models/items/item';
 import { ItemService } from '../../services/item.service';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { PaginationData } from '../../services/Common/pagination.data';
+import { PaginationData } from '../../services/models/common/pagination.data';
 
 @Component({
   selector: 'app-home',
@@ -48,6 +48,30 @@ export class HomeComponent implements OnInit{
     )
   }
 
+  //Delete Modal Function
+  
+  public showDeleteModal(itemId: number): void {
+    debugger
+    this.ItemId=itemId;
+    this.modalDelete = true;
+  }
+  public hideDeleteModal(): void {
+    this.modalDelete = false;
+  }
+  public saveDeleteChanges(): void {
+    this.itemService.deleteItem(this.ItemId).subscribe({
+      next: response => {
+        console.log("Delete successful:", response);
+        // You can handle the response here, e.g., update the UI or a list
+      },
+      error: err => {
+        console.error("Error during delete:", err);
+        // Handle the error here
+      }
+    });
+    this.modalDelete = false;
+  }
+
 
   // Edit Modal Function
   
@@ -73,30 +97,6 @@ export class HomeComponent implements OnInit{
       }
     });
     this.modalEdit = false;
-  }
-
-  //Delete Modal Function
-  
-  public showDeleteModal(itemId: number): void {
-    debugger
-    this.ItemId=itemId;
-    this.modalDelete = true;
-  }
-  public hideDeleteModal(): void {
-    this.modalDelete = false;
-  }
-  public saveDeleteChanges(): void {
-    this.itemService.deleteItem(this.ItemId).subscribe({
-      next: response => {
-        console.log("Delete successful:", response);
-        // You can handle the response here, e.g., update the UI or a list
-      },
-      error: err => {
-        console.error("Error during delete:", err);
-        // Handle the error here
-      }
-    });
-    this.modalDelete = false;
   }
 
   //Pagination Helper Function

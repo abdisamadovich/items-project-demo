@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component,OnInit,inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { Item } from '../../services/items/item';
+import { Item } from '../../services/models/items/item';
 import { ItemService } from '../../services/item.service';
-import { ItemCreate } from '../../services/items/itemCreate';
+import { ItemCreate } from '../../services/models/items/itemCreate';
 
 @Component({
   selector: 'app-add',
