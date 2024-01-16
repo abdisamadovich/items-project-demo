@@ -4,6 +4,7 @@ import { Item } from '../../services/items/item';
 import { ItemService } from '../../services/item.service';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { PaginationData } from '../../services/Common/pagination.data';
 
 @Component({
   selector: 'app-home',
@@ -13,47 +14,51 @@ import { RouterModule } from '@angular/router';
   styleUrl: './home.component.less'
 })
 export class HomeComponent implements OnInit{
-  public modalDeleteVisible: boolean = false;
-  public modalEditVisible: boolean=false;
+
+  //For ModalWindow Variables
+  public modalEdit: boolean = false;
+  public modalDelete: boolean = false;
+
+  //For GetItems Variables
   private itemService : ItemService = inject(ItemService);
   public items: Item[] = [];
 
+  //For Edit, Delete, Add Variables
   public ItemId:number=0;
   public itemType: number = 0;
   public itemName: string = "";
   public itemDate: Date =new Date();
 
+  //For Pagination Variables
+  public currentPage: number = 1;
+  public totalPages: number = 1;
+  public pagenationData:PaginationData=new PaginationData();
+
+  //Get items
   public ngOnInit(): void {
-    this.itemService.getItems()
-      .subscribe(x =>{
-        this.items = x;
-      });
+    this.getItems(this.currentPage);
   }
-  // Modal Function
-  public modalVisible: boolean = false;
-  public showModal(): void {
-    this.modalVisible = true;
-  }
-  public hideModal(): void {
-    this.modalVisible = false;
-  }
-  public saveChanges(): void {
-    // do something
-    this.modalVisible = false;
+
+  getItems(page: number) {
+    this.itemService.getItems(page).subscribe((response) => {
+        this.items = response.items;
+        this.pagenationData=response.paginationMetaData;
+        this.totalPages=response.paginationMetaData.totalPages;
+      }
+    )
   }
 
 
   // Edit Modal Function
-  public modalVisibleEdit: boolean = false;
+  
   public showModalEdit(itemId:number): void {
     this.ItemId=itemId;
-    this.modalVisibleEdit = true;
+    this.modalEdit = true;
   }
   public hideModalEdit(): void {
-    this.modalVisibleEdit = false;
+    this.modalEdit = false;
   }
   public saveEditChanges(): void {
-    debugger;
     const itemModel = new Item();
         itemModel.itemId=this.ItemId;        
         itemModel.itemName=this.itemName;
@@ -67,18 +72,18 @@ export class HomeComponent implements OnInit{
         alert("Error during edit:");
       }
     });
-    this.modalEditVisible = false;
+    this.modalEdit = false;
   }
-
-
 
   //Delete Modal Function
+  
   public showDeleteModal(itemId: number): void {
+    debugger
     this.ItemId=itemId;
-    this.modalDeleteVisible = true;
+    this.modalDelete = true;
   }
   public hideDeleteModal(): void {
-    this.modalDeleteVisible = false;
+    this.modalDelete = false;
   }
   public saveDeleteChanges(): void {
     this.itemService.deleteItem(this.ItemId).subscribe({
@@ -91,7 +96,29 @@ export class HomeComponent implements OnInit{
         // Handle the error here
       }
     });
-    this.modalDeleteVisible = false;
+    this.modalDelete = false;
+  }
+
+  //Pagination Helper Function
+
+  public changePage(page: number): void {
+    if (page < 1 || page > this.totalPages) {
+      return;
+    }
+    this.currentPage = page;
+    this.getItems(this.currentPage);
+  }
+
+  public hangePage(page: number): void {
+    if (page < 1 || page > this.totalPages) {
+      return;
+    }
+    this.currentPage = page;
+    this.itemService.getItems(this.currentPage);
+  }
+
+  get pageNumbers(): number[] {
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
 }
 

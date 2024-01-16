@@ -1,17 +1,24 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
-import { Observable, map } from "rxjs";
-import { ItemModel } from "./models/item.model";
-import { ItemCreateModel } from "./models/itemCreate.model";
+import { Observable, catchError } from "rxjs";
+import { ItemModel } from "./models/item/item.model";
+import { ItemCreateModel } from "./models/item/itemCreate.model";
+import { ItemGetAllModel } from "./models/item/ite.getall.model";
 
 @Injectable({providedIn:"root"})
 export class ItemApiService {
     private client: HttpClient = inject(HttpClient);
     private apiUrl = "https://localhost:7274/Item"; // API manzili
-    
+    private page_size:number=3;
     // Get Items
-    public getItems(): Observable<ItemModel[]>{
-        return this.client.get<ItemModel[]>("https://localhost:7274/Item");
+    public getItems(pageNumber:number): Observable<ItemGetAllModel>{
+        const url = `${this.apiUrl}?page=${pageNumber}&pageSize=${this.page_size}`;
+        return this.client.get<ItemGetAllModel>(url).pipe(
+          catchError((error) => {
+            console.error("Error in getItems:", error);
+            throw error;
+          })
+        );
     }
 
     // add Items

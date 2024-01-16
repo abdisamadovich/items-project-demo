@@ -1,20 +1,27 @@
 import { Injectable, inject } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { Item } from "./items/item";
-import { ItemModel } from "../api/models/item.model";
+import { ItemModel } from "../api/models/item/item.model";
 import { ItemApiService } from "../api/item.api-service";
 import { ItemCreate } from "./items/itemCreate";
+import { ItemGetAllModel } from "../api/models/item/ite.getall.model";
+import { ItemGetAll } from "./items/item.getall";
+import { PaginationMetaData } from "../api/models/common/pagination.data.model";
+import { PaginationData } from "./Common/pagination.data";
 
 @Injectable({providedIn : "root"})
 export class ItemService{
+    //Inject ApiService (Repository)
     private itemApiService: ItemApiService = inject(ItemApiService)
-    public getItems(): Observable<Item[]> {
-        return this.itemApiService.getItems()
-            .pipe(map(x => {
-                const result: Item[] = [];
-                for (let i = 0; i < x.length; i++) {
-                    result.push(this.toModel(x[i]))                    
-                }
+    // GetAll Items
+    public getItems(pageNumber:number): Observable<ItemGetAll> {
+        return this.itemApiService.getItems(pageNumber)
+            .pipe(map(response => {
+                const result = new ItemGetAll();
+                result.items = response.items.map(apiModel => this.toModel(apiModel));
+                console.log(response.paginationMetaData);
+                
+                result.paginationMetaData = this.toPaginationMetaData(response.paginationMetaData);
                 return result;
             }));
     }
@@ -41,6 +48,18 @@ export class ItemService{
         result.itemName = apiModel.itemName;
         result.itemType = apiModel.itemType;
         result.itemDate = new Date(apiModel.itemDate)
+        return result;
+    }
+
+     // ToPaginationMetaData Function
+    private toPaginationMetaData(apiPaginationMetaData: PaginationMetaData): PaginationData {
+        const result = new PaginationData();
+        result.currentPage = apiPaginationMetaData.currentPage;
+        result.totalPages = apiPaginationMetaData.totalPages;
+        result.pageSize = apiPaginationMetaData.pageSize;
+        result.totalItems = apiPaginationMetaData.totalItems;
+        result.hasPrevious = apiPaginationMetaData.hasPrevious;
+        result.hasNext = apiPaginationMetaData.hasNext;
         return result;
     }
 }

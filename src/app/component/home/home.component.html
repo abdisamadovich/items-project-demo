@@ -19,11 +19,11 @@
                       <th scope="row">{{i+1}}</th>
                       <td>{{item.itemName}}</td>
                       <td>{{item.itemType}}</td>
-                      <td>{{item.itemDate}}</td>
+                      <td>{{item.itemDate | date:"YYYY-MM-dd hh:mm" }}</td>
                       <td>
                           <div class="d-grid gap-2 d-md-block">
                               <button class="btn btn-outline-warning m-1" type="button" (click)="showModalEdit(item.itemId)">Edit</button>
-                              <button class="btn btn-outline-danger " type="button" (click)="showModal()">Delete</button>
+                              <button class="btn btn-outline-danger " type="button" (click)="showDeleteModal(item.itemId)">Delete</button>
                           </div>
                       </td>
                   </tr>
@@ -35,31 +35,31 @@
       <div>
         <nav aria-label="...">
           <ul class="pagination">
-            <li class="page-item disabled">
-              <a class="page-link" href="#" tabindex="-1">Previous</a>
+            <li class="page-item disabled" [class.disabled]="currentPage === 1">
+              <a class="page-link" [routerLink]="['/item-list']" (click)="changePage(currentPage - 1)" href="#" tabindex="-1">Previous</a>
             </li>
             <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item active">
-              <a class="page-link" href="#">2</a>
+            <li class="page-item active" *ngFor="let pageNumber of pageNumbers" [class.active]="currentPage === pageNumber">
+              <a class="page-link" [routerLink]="['/item-list']" href="#" (click)="changePage(pageNumber)">{{ pageNumber }}</a>
             </li>
             <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#">Next</a>
+            <li class="page-item" [class.disabled]="currentPage === this.totalPages">
+              <a class="page-link" [routerLink]="['/item-list']" href="#" (click)="changePage(currentPage + 1)">Next</a>
             </li>
           </ul>
         </nav>
       </div>
   </div>
 </div>
+<!--end:: Main Window-->
 
-
-<!--  -->
-<div *ngIf="modalVisible" class="modal" tabindex="-1" style="display: block;" role="dialog">
+<!-- Delete Items -->
+<div *ngIf="modalDelete" class="modal" tabindex="-1" style="display: block;" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Delete</h5>
-        <button type="button" (click)="hideModal()" class="close" data-dismiss="modal">
+        <button type="button" (click)="hideDeleteModal()" class="close" data-dismiss="modal">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -67,8 +67,8 @@
         <p>Delete Item?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" (click)="saveChanges()" class="btn btn-primary">Yes</button>
-        <button type="button" (click)="hideModal()" class="btn btn-secondary" data-dismiss="modal">No</button>
+        <button type="button" (click)="saveDeleteChanges()" class="btn btn-primary">Yes</button>
+        <button type="button" (click)="hideDeleteModal()" class="btn btn-secondary" data-dismiss="modal">No</button>
       </div>
     </div>
   </div>
@@ -76,7 +76,7 @@
 
 
 <!-- Edit Items -->
-<div *ngIf="modalVisibleEdit" class="modal" tabindex="-1" style="display: block;" role="dialog" >
+<div *ngIf="modalEdit" class="modal" tabindex="-1" style="display: block;" role="dialog" >
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
