@@ -10,7 +10,7 @@ export class ItemApiService {
     private apiUrl = "https://localhost:7274/Item"; // API manzili
     
     private client: HttpClient = inject(HttpClient);
-    private page_size:number=3;
+    private page_size:number=7;
     // Get Items
     public getItems(pageNumber:number): Observable<ItemGetAllModel>{
         const url = `${this.apiUrl}?page=${pageNumber}&pageSize=${this.page_size}`;

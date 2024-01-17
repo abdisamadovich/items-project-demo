@@ -51,7 +51,6 @@ export class HomeComponent implements OnInit{
   //Delete Modal Function
   
   public showDeleteModal(itemId: number): void {
-    debugger
     this.ItemId=itemId;
     this.modalDelete = true;
   }
@@ -60,15 +59,15 @@ export class HomeComponent implements OnInit{
   }
   public saveDeleteChanges(): void {
     this.itemService.deleteItem(this.ItemId).subscribe({
-      next: response => {
-        console.log("Delete successful:", response);
-        // You can handle the response here, e.g., update the UI or a list
+      next: (response) => {
+        this.getItems(this.currentPage);
+        alert('Delete successful');
       },
-      error: err => {
-        console.error("Error during delete:", err);
-        // Handle the error here
-      }
+      error: (err) => {
+        alert('Error during delete:');
+      },
     });
+    this.getItems(this.currentPage);
     this.modalDelete = false;
   }
 
