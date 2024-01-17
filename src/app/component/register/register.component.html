@@ -6,13 +6,13 @@
       <div class="row mb-4">
         <div class="col">
           <div data-mdb-input-init class="form-outline">
-            <input type="text" id="form3Example1" class="form-control" />
+            <input type="text" [(ngModel)]="firstName" name="firstName" id="first_name" class="form-control" />
             <label class="form-label" for="form3Example1">First name</label>
           </div>
         </div>
         <div class="col">
           <div data-mdb-input-init class="form-outline">
-            <input type="text" id="form3Example2" class="form-control" />
+            <input type="text" [(ngModel)]="lastName" name="lastName" id="last_name" class="form-control" />
             <label class="form-label" for="form3Example2">Last name</label>
           </div>
         </div>
@@ -20,13 +20,13 @@
     
       <!-- Email input -->
       <div data-mdb-input-init class="form-outline mb-4">
-        <input type="email" id="form3Example3" class="form-control" />
+        <input type="email" [(ngModel)]="email" id="email" name="email" class="form-control" />
         <label class="form-label" for="form3Example3">Email address</label>
       </div>
     
       <!-- Password input -->
       <div data-mdb-input-init class="form-outline mb-4">
-        <input type="password" id="form3Example4" class="form-control" />
+        <input type="password" [(ngModel)]="password" name="password" id="password" class="form-control" />
         <label class="form-label" for="form3Example4">Password</label>
       </div>
     
@@ -39,7 +39,7 @@
       </div>
     
       <!-- Submit button -->
-      <button data-mdb-ripple-init type="button" class="btn btn-primary btn-block mb-4">Sign up</button>
+      <button (click)="registerUser()" data-mdb-ripple-init type="button" class="btn btn-primary btn-block mb-4">Sign up</button>
     
       <!-- Register buttons -->
       <div class="text-center">
