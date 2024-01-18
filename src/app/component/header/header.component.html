@@ -1,16 +1,32 @@
 <div class="container">
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
       <ul class="nav nav-pills">
-        <li class="nav-item"><a href="#" class="nav-link active" [routerLink]="['/home']">List Item</a></li>
+        <li class="nav-item"><a href="#" class="nav-link" [routerLink]="['/home']">List Item</a></li>
         <li class="nav-item"><a href="#" class="nav-link" [routerLink]="['/add']">Add Item</a></li>
-        <!-- <li class="nav-item"><a href="#" class="nav-link">Features</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li> -->
         <li class="nav-item"><a href="#" class="nav-link" [routerLink]="['/login']">Login</a></li>
         <li class="nav-item"><a href="#" class="nav-link" [routerLink]="['/register']">Register</a></li>
-        <!-- <li class="nav-item"><a href="#" class="nav-link" [routerLink]="['/about']">About</a></li> -->
+        <button type="button" class="btn btn-outline-danger" (click)="showLogOutModal()">LogOut</button>
       </ul>
     </header>
+  </div>
 
-    
+  <!-- LogOut -->
+  <div *ngIf="modalLogOutVisible" class="modal" tabindex="-1" style="display: block;" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Log out account</h5>
+                <button type="button" (click)="hideLogOutModal()" class="btn-close" data-dismiss="modal">
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Do you want to log out the account?</p>
+            </div>
+            <div class="modal-footer">
+                <button  (click)="saveLogOutChanges()" class="btn btn-primary">Log out</button>
+                <button type="button" (click)="hideLogOutModal()" class="btn btn-secondary"
+                    data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
   </div>
