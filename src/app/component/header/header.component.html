@@ -1,17 +1,17 @@
 <div class="container">
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
       <ul class="nav nav-pills">
-        <li class="nav-item"><a href="#" class="nav-link" [routerLink]="['/home']">List Item</a></li>
-        <li class="nav-item"><a href="#" class="nav-link" [routerLink]="['/add']">Add Item</a></li>
-        <li class="nav-item"><a href="#" class="nav-link" [routerLink]="['/login']">Login</a></li>
-        <li class="nav-item"><a href="#" class="nav-link" [routerLink]="['/register']">Register</a></li>
-        <button type="button" class="btn btn-outline-danger" (click)="showLogOutModal()">LogOut</button>
+        <li class="nav-item"><a href="#" *ngIf="isLoggedIn" class="nav-link" [routerLink]="['/home']">List Item</a></li>
+        <li class="nav-item"><a href="#" *ngIf="isLoggedIn" class="nav-link" [routerLink]="['/add']">Add Item</a></li>
+        <li class="nav-item"><a href="#" *ngIf="!isLoggedIn" class="nav-link" [routerLink]="['/login']">Login</a></li>
+        <li class="nav-item"><a href="#" *ngIf="!isLoggedIn" class="nav-link" [routerLink]="['/register']">Register</a></li>
+        <button type="button" *ngIf="isLoggedIn" class="btn btn-outline-danger" (click)="showLogOutModal()">LogOut</button>
       </ul>
     </header>
-  </div>
+</div>
 
   <!-- LogOut -->
-  <div *ngIf="modalLogOutVisible" class="modal" tabindex="-1" style="display: block;" role="dialog">
+<div *ngIf="modalLogOutVisible" class="modal" tabindex="-1" style="display: block;" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -29,4 +29,4 @@
             </div>
         </div>
     </div>
-  </div>
+</div>

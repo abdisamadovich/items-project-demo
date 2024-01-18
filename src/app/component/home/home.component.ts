@@ -67,13 +67,11 @@ export class HomeComponent implements OnInit{
         alert('Error during delete:');
       },
     });
-    this.getItems(this.currentPage);
     this.modalDelete = false;
   }
 
 
   // Edit Modal Function
-  
   public showModalEdit(itemId:number): void {
     this.ItemId=itemId;
     this.modalEdit = true;
@@ -90,6 +88,7 @@ export class HomeComponent implements OnInit{
     this.itemService.editItem(itemModel).subscribe({
       next: response => {
         alert("Edit successful:");
+        this.getItems(this.currentPage);
       },
       error: err => {
         alert("Error during edit:");
