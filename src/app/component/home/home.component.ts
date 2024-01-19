@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { PaginationData } from '../../services/models/common/pagination.data';
 import { LoadingComponent } from '../loading/loading.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +16,7 @@ import { LoadingComponent } from '../loading/loading.component';
   styleUrl: './home.component.less'
 })
 export class HomeComponent implements OnInit{
+  constructor(private toastr: ToastrService) {};
 
   //For ModalWindow Variables
   public modalEdit: boolean = false;
@@ -69,10 +71,10 @@ export class HomeComponent implements OnInit{
     this.itemService.deleteItem(this.itemId).subscribe({
       next: (response) => {
         this.getItems(this.currentPage);
-        alert('Delete successful');
+        this.toastr.success("Success delete item!");  
       },
       error: (err) => {
-        alert('Error during delete:');
+        this.toastr.warning("Error during delete!");
       },
     });
     this.modalDelete = false;
@@ -97,11 +99,11 @@ export class HomeComponent implements OnInit{
         itemModel.itemDate=this.itemDate;
     this.itemService.editItem(itemModel).subscribe({
       next: response => {
-        alert("Edit successful:");
+        this.toastr.success("Success edit item!");   
         this.getItems(this.currentPage);
       },
       error: err => {
-        alert("Error during edit:");
+        this.toastr.warning("Error during edit!"); 
       }
     });
     this.modalEdit = false;

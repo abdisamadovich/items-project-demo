@@ -6,6 +6,7 @@ import { Item } from '../../services/models/items/item';
 import { ItemService } from '../../services/item.service';
 import { ItemCreate } from '../../services/models/items/itemCreate';
 import { LoadingComponent } from '../loading/loading.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add',
@@ -17,6 +18,7 @@ import { LoadingComponent } from '../loading/loading.component';
 export class AddComponent {
   public modalAddVisible: boolean=false;
   private itemService:ItemService=inject(ItemService);
+  constructor(private toastr: ToastrService) {};
   public loading: boolean = false;
   public items:Item[]=[];
 
@@ -35,15 +37,14 @@ export class AddComponent {
         itemCreateModel.itemDate=this.itemDate;
         this.itemService.addItem(itemCreateModel).subscribe({
       next: response => {
-        alert("Add successful:");
+        this.toastr.success("Success add item!");
       },
       error: err => {
-        
-        alert("Error during add:");
+        this.toastr.warning("Error during add!");  
       }
     });
-    this.modalAddVisible = false;
-    this.loading = false;
-    }, 1000);    
+      this.modalAddVisible = false;
+      this.loading = false;
+    }, 100);    
   }
 }
