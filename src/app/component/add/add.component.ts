@@ -25,13 +25,15 @@ export class AddComponent {
   public itemName: string = "";
   public itemDate: Date =new Date();
 
+  
   public saveAddChanges(): void {
     this.loading = true;
-    const itemCreateModel = new ItemCreate();        
+    setTimeout(() => {
+      const itemCreateModel = new ItemCreate();        
         itemCreateModel.itemName=this.itemName;
         itemCreateModel.itemType=this.itemType;
         itemCreateModel.itemDate=this.itemDate;
-    this.itemService.addItem(itemCreateModel).subscribe({
+        this.itemService.addItem(itemCreateModel).subscribe({
       next: response => {
         alert("Add successful:");
       },
@@ -42,5 +44,6 @@ export class AddComponent {
     });
     this.modalAddVisible = false;
     this.loading = false;
+    }, 1000);    
   }
 }

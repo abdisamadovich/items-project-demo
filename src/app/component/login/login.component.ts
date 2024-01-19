@@ -21,26 +21,25 @@ export class LoginComponent {
   private router: Router = inject(Router);
   public loading: boolean = false;
 
-  public loginUser():void{
-    const userLogin = new UserLogin()
+  public loginUser(): void {
+    const userLogin = new UserLogin();
     userLogin.clientId = 0;
     userLogin.grantType = "password";
     userLogin.email = this.email;
     userLogin.password = this.password;
     this.loading = true;
-
-    this.userService.userLogin(userLogin).subscribe({
-      next: (response) => {
-        alert("Login Successful");
-        AuthenticationOrchestrator.signaller.next(true)
-        this.router.navigate(["/home"])
-      },
-      error: (err) => {  
-        alert("Error during login");
-      }
-    })
-    this.loading = false;
-  }  
+  
+    setTimeout(() => {
+      this.userService.userLogin(userLogin).subscribe({
+        next: (response) => {
+          this.loading = false;
+          AuthenticationOrchestrator.signaller.next(true);
+          this.router.navigate(["/home"]);
+        },
+        error: (err) => {
+          this.loading = false;
+        }
+      });
+    }, 1000);
+  }
 }
-
-

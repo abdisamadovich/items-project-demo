@@ -43,13 +43,16 @@ export class HomeComponent implements OnInit{
 
   getItems(page: number) {
     this.loading = true;
-    this.itemService.getItems(page).subscribe((response) => {
+    setTimeout(() => {
+      this.itemService.getItems(page).subscribe((response) => {
         this.items = response.items;
         this.pagenationData=response.paginationMetaData;
         this.totalPages=response.paginationMetaData.totalPages;
+        this.loading = false;
       }
     )
-    this.loading = false;
+    }, 1000);
+    
   }
 
   //Delete Modal Function
