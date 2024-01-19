@@ -5,11 +5,12 @@ import { ItemService } from '../../services/item.service';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { PaginationData } from '../../services/models/common/pagination.data';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule,FormsModule,RouterModule],
+  imports: [CommonModule,FormsModule,RouterModule,LoadingComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.less'
 })
@@ -18,13 +19,14 @@ export class HomeComponent implements OnInit{
   //For ModalWindow Variables
   public modalEdit: boolean = false;
   public modalDelete: boolean = false;
+  public loading: boolean = false;
 
   //For GetItems Variables
   private itemService : ItemService = inject(ItemService);
   public items: Item[] = [];
 
   //For Edit, Delete, Add Variables
-  public ItemId:number=0;
+  public itemId:number=0;
   public itemType: number = 0;
   public itemName: string = "";
   public itemDate: Date =new Date();
@@ -40,25 +42,28 @@ export class HomeComponent implements OnInit{
   }
 
   getItems(page: number) {
+    this.loading = true;
     this.itemService.getItems(page).subscribe((response) => {
         this.items = response.items;
         this.pagenationData=response.paginationMetaData;
         this.totalPages=response.paginationMetaData.totalPages;
       }
     )
+    this.loading = false;
   }
 
   //Delete Modal Function
   
   public showDeleteModal(itemId: number): void {
-    this.ItemId=itemId;
+    this.itemId=itemId;
     this.modalDelete = true;
   }
   public hideDeleteModal(): void {
     this.modalDelete = false;
   }
   public saveDeleteChanges(): void {
-    this.itemService.deleteItem(this.ItemId).subscribe({
+    this.loading = true;
+    this.itemService.deleteItem(this.itemId).subscribe({
       next: (response) => {
         this.getItems(this.currentPage);
         alert('Delete successful');
@@ -68,20 +73,22 @@ export class HomeComponent implements OnInit{
       },
     });
     this.modalDelete = false;
+    this.loading = false;
   }
 
 
   // Edit Modal Function
   public showModalEdit(itemId:number): void {
-    this.ItemId=itemId;
+    this.itemId=itemId;
     this.modalEdit = true;
   }
   public hideModalEdit(): void {
     this.modalEdit = false;
   }
   public saveEditChanges(): void {
+    this.loading = true;
     const itemModel = new Item();
-        itemModel.itemId=this.ItemId;        
+        itemModel.itemId=this.itemId;        
         itemModel.itemName=this.itemName;
         itemModel.itemType=this.itemType;
         itemModel.itemDate=this.itemDate;
@@ -95,6 +102,7 @@ export class HomeComponent implements OnInit{
       }
     });
     this.modalEdit = false;
+    this.loading = false;
   }
 
   //Pagination Helper Function

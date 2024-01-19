@@ -32,8 +32,7 @@ export class RegisterComponent {
     this.userService.userRegister(userRegister).subscribe({
       next:(Response) =>{
         alert("Register Successfull")
-        AuthenticationOrchestrator.signaller.next(true)
-        this.router.navigate(["/home"])
+        this.router.navigate(["/login"])
       },
       error:(err) => {
         alert("Error during register")

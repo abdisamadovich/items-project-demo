@@ -4,11 +4,13 @@ import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { UserLogin } from '../../services/models/user/userLogin';
 import { AuthenticationOrchestrator } from '../models/authentication-orchestrator';
+import { LoadingComponent } from '../loading/loading.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterModule,FormsModule],
+  imports: [RouterModule,FormsModule,LoadingComponent,CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.less'
 })
@@ -17,6 +19,7 @@ export class LoginComponent {
   public email:string = "";
   public password:string = "";
   private router: Router = inject(Router);
+  public loading: boolean = false;
 
   public loginUser():void{
     const userLogin = new UserLogin()
@@ -24,18 +27,20 @@ export class LoginComponent {
     userLogin.grantType = "password";
     userLogin.email = this.email;
     userLogin.password = this.password;
-    ;
+    this.loading = true;
+
     this.userService.userLogin(userLogin).subscribe({
       next: (response) => {
         alert("Login Successful");
         AuthenticationOrchestrator.signaller.next(true)
         this.router.navigate(["/home"])
       },
-      error: (err) => {
+      error: (err) => {  
         alert("Error during login");
       }
     })
-    
+    this.loading = false;
   }  
 }
+
 
