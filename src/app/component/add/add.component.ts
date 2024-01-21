@@ -18,17 +18,19 @@ import { ToastrService } from 'ngx-toastr';
 export class AddComponent {
   public modalAddVisible: boolean=false;
   private itemService:ItemService=inject(ItemService);
-  constructor(private fb:FormBuilder,private toastr: ToastrService) {};
+  private toastr: ToastrService = inject(ToastrService);
 
   public loading: boolean = false;
   public itemId:number=0;
   public itemType: number = 0;
   public itemName: string = "";
   public itemDate: Date =new Date();
-
   
   public saveAddChanges(): void {
     this.loading = true;
+    if (!this.validateInputs()) {
+      return;
+    }
     const itemCreateModel = new ItemCreate();        
     itemCreateModel.itemName=this.itemName;
     itemCreateModel.itemType=this.itemType;
@@ -44,5 +46,16 @@ export class AddComponent {
     }
     });
       this.modalAddVisible = false; 
+  }
+
+  private validateInputs(): boolean {
+    setTimeout(() => {
+      this.loading=false;
+    }, 1000);
+    if (!this.itemName.trim()) {
+      this.toastr.warning('First name cannot be empty!');
+      return false;
+    }
+    return true; 
   }
 }

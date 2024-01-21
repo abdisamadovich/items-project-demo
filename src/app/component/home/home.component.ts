@@ -17,7 +17,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class HomeComponent implements OnInit{
   constructor(private toastr: ToastrService) {};
-
+  
+  public page_size: number = 10;
   //For ModalWindow Variables
   public modalEdit: boolean = false;
   public modalDelete: boolean = false;

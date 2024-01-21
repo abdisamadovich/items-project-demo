@@ -18,7 +18,7 @@
               <tbody class="table-group-divider">
                 <!-- Loop through items -->
                   <tr *ngFor="let item of items;let i = index"> 
-                      <th scope="row">{{i+1}}</th>
+                      <th scope="row">{{ i + 1+(currentPage-1)*page_size }}</th>
                       <td>{{item.itemId }}</td>
                       <td>{{item.itemName}}</td>
                       <td>{{item.itemType}}</td>
@@ -61,15 +61,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Delete</h5>
-        <button type="button" (click)="hideDeleteModal()" class="close" data-dismiss="modal">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" (click)="hideDeleteModal()" class="btn-close" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <p>Delete Item?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" (click)="saveDeleteChanges()" class="btn btn-primary">Yes</button>
+        <button type="submit" (click)="saveDeleteChanges()" class="btn btn-primary">Yes</button>
         <button type="button" (click)="hideDeleteModal()" class="btn btn-secondary" data-dismiss="modal">No</button>
       </div>
     </div>
@@ -83,9 +81,10 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="myModalLabel">Edit Item</h5>
-        <button type="button" class="close"(click)="hideModalEdit()" data-dismiss="modal" aria-label="Close">
+        <!-- <button type="button" class="close"(click)="hideModalEdit()" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-        </button>
+        </button> -->
+        <button type="button" (click)="hideModalEdit()" class="btn-close" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <!-- Form content goes here -->
@@ -103,7 +102,7 @@
               <input type="date" class="form-control" id="date" required [(ngModel)]="itemDate" name="itemDate">
           </div>
           <button type="button" class="m-1 btn btn-primary" data-dismiss="modal" (click)="hideModalEdit()">No</button>
-          <button class="btn btn-success" type="button" (click)="saveEditChanges()">Yes</button>
+          <button class="btn btn-success" type="submit" (click)="saveEditChanges()">Yes</button>
         </form>
       </div>
     </div>
