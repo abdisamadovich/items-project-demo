@@ -58,7 +58,6 @@ export class HomeComponent implements OnInit{
   }
 
   //Delete Modal Function
-  
   public showDeleteModal(itemId: number): void {
     this.itemId=itemId;
     this.modalDelete = true;
@@ -80,7 +79,6 @@ export class HomeComponent implements OnInit{
     this.modalDelete = false;
     this.loading = false;
   }
-
 
   // Edit Modal Function
   public showModalEdit(itemId:number): void {

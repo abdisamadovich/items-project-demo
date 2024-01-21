@@ -3,13 +3,13 @@
       <h2><strong>Login</strong></h2>
         <form>
             <div class="form-group">
-              <label for="exampleInputEmail1">Email address</label>
-              <input type="email" [(ngModel)]="email" required="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="email@gmail.com">
+              <label>Email address</label>
+              <input type="email" [(ngModel)]="email" required="email" name="email" class="form-control" aria-describedby="emailHelp" placeholder="email@gmail.com">
               <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div class="form-group">
-              <label for="exampleInputPassword1">Password</label>
-              <input type="password" [(ngModel)]="password" name="password" required="password" class="form-control" id="password" placeholder="Password">
+              <label>Password</label>
+              <input type="password" [(ngModel)]="password" name="password" required="password" class="form-control" placeholder="Password">
             </div>
             <button type="submit" (click)="loginUser()" class="btn btn-primary">Submit</button>
         </form>

@@ -7,13 +7,13 @@
         <div class="col">
           <div data-mdb-input-init class="form-outline">
             <input type="text" [(ngModel)]="firstName" name="firstName" id="first_name" class="form-control" />
-            <label class="form-label" for="form3Example1">First name</label>
+            <label class="form-label">First name</label>
           </div>
         </div>
         <div class="col">
           <div data-mdb-input-init class="form-outline">
             <input type="text" [(ngModel)]="lastName" name="lastName" id="last_name" class="form-control" />
-            <label class="form-label" for="form3Example2">Last name</label>
+            <label class="form-label">Last name</label>
           </div>
         </div>
       </div>
@@ -21,45 +21,21 @@
       <!-- Email input -->
       <div data-mdb-input-init class="form-outline mb-4">
         <input type="email" [(ngModel)]="email" id="email" name="email" class="form-control" />
-        <label class="form-label" for="form3Example3">Email address</label>
+        <label class="form-label">Email address</label>
       </div>
     
       <!-- Password input -->
       <div data-mdb-input-init class="form-outline mb-4">
         <input type="password" [(ngModel)]="password" name="password" id="password" class="form-control" />
-        <label class="form-label" for="form3Example4">Password</label>
-      </div>
-    
-      <!-- Checkbox -->
-      <div class="form-check d-flex justify-content-center mb-4">
-        <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
-        <label class="form-check-label" for="form2Example33">
-          Subscribe to our newsletter
-        </label>
+        <label class="form-label">Password</label>
       </div>
     
       <!-- Submit button -->
       <button (click)="registerUser()" data-mdb-ripple-init type="button" class="btn btn-primary btn-block mb-4">Sign up</button>
-    
-      <!-- Register buttons -->
-      <div class="text-center">
-        <p>or sign up with:</p>
-        <button data-mdb-ripple-init type="button" class="btn btn-secondary btn-floating mx-1">
-          <i class="fab fa-facebook-f"></i>
-        </button>
-    
-        <button data-mdb-ripple-init type="button" class="btn btn-secondary btn-floating mx-1">
-          <i class="fab fa-google"></i>
-        </button>
-    
-        <button data-mdb-ripple-init type="button" class="btn btn-secondary btn-floating mx-1">
-          <i class="fab fa-twitter"></i>
-        </button>
-    
-        <button data-mdb-ripple-init type="button" class="btn btn-secondary btn-floating mx-1">
-          <i class="fab fa-github"></i>
-        </button>
-      </div>
     </form>
   </div>
+</div>
+
+<div *ngIf="loading">
+  <app-loading></app-loading>
 </div>
