@@ -58,27 +58,36 @@ export class RegisterComponent {
 
   private validateInputs(): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const lastDotIndex = this.email.lastIndexOf('.');
+    const charsAfterLastDot = this.email.slice(lastDotIndex + 1);
     setTimeout(() => {
       this.loading=false;
     }, 1000);
 
-    if (!this.firstName.trim()) {
-      this.toastr.warning('First name cannot be empty!');
+    const hasNumberRegex = /\d/;
+
+    if (!this.firstName.trim() || this.firstName.split(' ').length > 1 || hasNumberRegex.test(this.firstName)) {
+      this.toastr.warning('The first name must consist of one word and must not be empty and must not contain a number');
       return false;
     }
   
-    if (!this.lastName.trim()) {
-      this.toastr.warning('Last name cannot be empty!');
+    if (!this.lastName.trim() || this.lastName.split(' ').length > 1 || hasNumberRegex.test(this.lastName)) {
+      this.toastr.warning('The last name must consist of one word and must not be empty and must not contain a number');
       return false;
     }
     
-    if (!emailRegex.test(this.email)) {
+    if (!emailRegex.test(this.email) || charsAfterLastDot.length < 2) {
       this.toastr.warning('Invalid email address!');
       return false;
     }
 
     if (this.password.length < 8) {
       this.toastr.warning('Password should be at least 8 characters long!');
+      return false;
+    }
+
+    if (this.password.includes(' ')) {
+      this.toastr.warning('Password cannot contain spaces!');
       return false;
     }
 

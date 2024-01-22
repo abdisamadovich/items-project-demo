@@ -99,7 +99,7 @@
           </div>
           <div class="form-group mx-sm-3 mb-2">
             <label for="date" class="sr-only" >Date</label>
-              <input type="date" class="form-control" id="date" required [(ngModel)]="itemDate" name="itemDate">
+              <input type="datetime-local" class="form-control" id="date" required [(ngModel)]="itemDate" name="itemDate">
           </div>
           <button type="button" class="m-1 btn btn-primary" data-dismiss="modal" (click)="hideModalEdit()">No</button>
           <button class="btn btn-success" type="submit" (click)="saveEditChanges()">Yes</button>
