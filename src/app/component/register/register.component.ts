@@ -50,7 +50,7 @@ export class RegisterComponent {
         }, 1000);
       },
       error:(err) => {
-        this.toastr.warning("Error during register!");
+        this.toastr.error("Error during register!");
         this.loading=false;
       }
     })
