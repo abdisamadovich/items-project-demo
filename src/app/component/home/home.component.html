@@ -1,56 +1,60 @@
 <!-- Items List -->
 <div class="row justify-content-center">
-    <div class="col col-lg-6">
-      <h2><strong>Item List</strong></h2>
-      <div>
-        <form class="mx-auto">
-          <table class="table table-bordered table-striped">
-              <thead class="table-dark">
-                  <tr>
-                      <th scope="col">#</th>
-                      <th class="col-2 col-md-2">Id</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Type</th>
-                      <th scope="col">Data</th>
-                      <th scope="col">Action</th>
-                  </tr>
-              </thead>
-              <tbody class="table-group-divider">
-                <!-- Loop through items -->
-                  <tr *ngFor="let item of items;let i = index"> 
-                      <th scope="row">{{ i + 1+(currentPage-1)*page_size }}</th>
-                      <td>{{item.itemId }}</td>
-                      <td>{{item.itemName}}</td>
-                      <td>{{item.itemType}}</td>
-                      <td>{{item.itemDate | date:"YYYY-MM-dd hh:mm" }}</td>
-                      <td>
-                          <div class="d-grid gap-2 d-md-block">
-                              <button class="btn btn-outline-warning m-1" type="button" (click)="showModalEdit(item.itemId,item.itemName,item.itemType,item.itemDate)">Edit</button>
-                              <button class="btn btn-outline-danger " type="button" (click)="showDeleteModal(item.itemId,i + 1+(currentPage-1)*page_size)">Delete</button>
-                          </div>
-                      </td>
-                  </tr>
-                  
-              </tbody>
-          </table>
-      </form>
-      </div>
+  <div class="col col-lg-6">
+    <h2><strong>Item List</strong></h2>
+    <div>
+      <form class="mx-auto">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th class="col-2 col-md-2">Id</th>
+              <th scope="col">Name</th>
+              <th scope="col">Type</th>
+              <th scope="col">Data</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            <!-- Loop through items -->
+            <tr *ngFor="let item of items;let i = index">
+              <th scope="row">{{ i + 1+(currentPage-1)*page_size }}</th>
+              <td>{{item.itemId }}</td>
+              <td>{{item.itemName}}</td>
+              <td>{{item.itemType}}</td>
+              <td>{{item.itemDate | date:"YYYY-MM-dd hh:mm" }}</td>
+              <td>
+                <div class="d-grid gap-2 d-md-block">
+                  <button class="btn btn-outline-warning m-1" type="button"
+                    (click)="showModalEdit(item.itemId,item.itemName,item.itemType,item.itemDate)">Edit</button>
+                  <button class="btn btn-outline-danger " type="button"
+                    (click)="showDeleteModal(item.itemId,i + 1+(currentPage-1)*page_size)">Delete</button>
+                </div>
+              </td>
+            </tr>
 
-      <div class="mt-3">
-        <nav aria-label="Page navigation example">
-          <ul class="pagination justify-content-center">
-            <li class="page-item" [class.disabled]="currentPage === 1">
-              <a class="page-link" [routerLink]="['/item-list']" href="#" (click)="changePage(currentPage - 1)">Previous</a>
-            </li>
-            <li class="page-item" *ngFor="let pageNumber of pageNumbers" [class.active]="currentPage === pageNumber">
-              <a class="page-link" [routerLink]="['/item-list']" href="#" (click)="changePage(pageNumber)">{{ pageNumber }}</a>
-            </li>
-            <li class="page-item" [class.disabled]="currentPage === this.totalPages">
-              <a class="page-link" [routerLink]="['/item-list']" href="#" (click)="changePage(currentPage + 1)">Next</a>
-            </li>
-          </ul>
-        </nav>  
-      </div>
+          </tbody>
+        </table>
+      </form>
+    </div>
+
+    <div class="mt-3">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <a class="page-link" [routerLink]="['/home']" href="#"
+              (click)="changePage(currentPage - 1)">Previous</a>
+          </li>
+          <li class="page-item" *ngFor="let pageNumber of pageNumbers" [class.active]="currentPage === pageNumber">
+            <a class="page-link" [routerLink]="['/home']" href="#" (click)="changePage(pageNumber)">{{ pageNumber
+              }}</a>
+          </li>
+          <li class="page-item" [class.disabled]="currentPage === this.totalPages">
+            <a class="page-link" [routerLink]="['/home']" href="#" (click)="changePage(currentPage + 1)">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </div>
 <!--end:: Main Window-->
@@ -76,7 +80,7 @@
 
 
 <!-- Edit Items -->
-<div *ngIf="modalEdit" class="modal" tabindex="-1" style="display: block;" role="dialog" >
+<div *ngIf="modalEdit" class="modal" tabindex="-1" style="display: block;" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -91,15 +95,17 @@
         <form>
           <div class="form-group">
             <label for="name">Name:</label>
-            <input type="text" class="form-control" id="name" placeholder="Enter your name" [(ngModel)]="itemName" name="itemName">
+            <input type="text" class="form-control" id="name" placeholder="Enter your name" [(ngModel)]="itemName"
+              name="itemName">
           </div>
           <div class="form-group">
             <label for="type">Type:</label>
-            <input type="text" class="form-control" id="type" placeholder="Enter the type" [(ngModel)]="itemType" name="itemType">
+            <input type="text" class="form-control" id="type" placeholder="Enter the type" [(ngModel)]="itemType"
+              name="itemType">
           </div>
-          <div class="form-group mx-sm-3 mb-2">
-            <label for="date" class="sr-only" >Date</label>
-              <input type="datetime-local" class="form-control" id="date" required [(ngModel)]="itemDate" name="itemDate">
+          <div class="form-group">
+            <label for="date" class="sr-only">Date</label>
+            <input type="datetime-local" class="form-control" id="date" required [(ngModel)]="itemDate" name="itemDate">
           </div>
           <button type="button" class="m-1 btn btn-primary" data-dismiss="modal" (click)="hideModalEdit()">No</button>
           <button class="btn btn-success" type="submit" (click)="saveEditChanges()">Yes</button>

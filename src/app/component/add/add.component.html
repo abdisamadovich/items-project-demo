@@ -1,24 +1,26 @@
 <div class="row justify-content-center">
   <div class="col col-lg-6">
     <h2><strong>Add Item</strong></h2>
-  <form id="add-item-form" class="form-inline mt-3">
-    <div class="form-group mx-sm-3 mb-2">
-      <label for="name" class="sr-only">Name</label>
-      <input type="text" class="form-control" [(ngModel)]="itemName" name="itemName" id="name" placeholder="Name" required>
-      <div class="text-danger error-message" *ngIf="itemNameError">{{ itemNameError }}</div>
-    </div>
-    <div class="form-group mx-sm-3 mb-2">
-      <label for="type" class="sr-only">Type</label>
-      <input type="text" class="form-control" [(ngModel)]="itemType" name="itemType" id="type" placeholder="Type" required>
-      <div class="text-danger error-message" *ngIf="itemTypeError">{{ itemTypeError }}</div>
-    </div>
-    <div class="form-group mx-sm-3 mb-2">
-      <label for="date" class="sr-only">Date</label>
-        <input type="datetime-local" class="form-control"[(ngModel)]="itemDate" name="itemDate" id="date" required>
-    </div>
-    <div class="text-danger error-message" *ngIf="itemDateError">{{ itemDateError }}</div>
+    <form id="add-item-form" class="form-inline mt-3">
+      <div class="form-group mx-sm-3 mb-2">
+        <label for="name" class="sr-only">Name</label>
+        <input type="text" class="form-control" [(ngModel)]="itemName" name="itemName" id="name" placeholder="Name"
+          required>
+        <div class="text-danger error-message" *ngIf="itemNameError">{{ itemNameError }}</div>
+      </div>
+      <div class="form-group mx-sm-3 mb-2">
+        <label for="type" class="sr-only">Type</label>
+        <input type="text" class="form-control" [(ngModel)]="itemType" name="itemType" id="type" placeholder="Type"
+          required>
+        <div class="text-danger error-message" *ngIf="itemTypeError">{{ itemTypeError }}</div>
+      </div>
+      <div class="form-group mx-sm-3 mb-2">
+        <label for="date" class="sr-only">Date</label>
+        <input type="datetime-local" class="form-control" [(ngModel)]="itemDate" name="itemDate" id="date" required>
+        <div class="text-danger error-message" *ngIf="itemDateError">{{ itemDateError }}</div>
+      </div>
 
-    <button type="submit" class="btn btn-primary mb-2" (click)="saveAddChanges()">Add</button>
+      <button type="submit" class="btn btn-primary mb-2" (click)="saveAddChanges()">Add</button>
     </form>
   </div>
 </div>

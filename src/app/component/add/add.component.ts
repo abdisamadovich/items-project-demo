@@ -58,7 +58,7 @@ export class AddComponent {
   }
 
   // validateForm
-  private validateForm(itemName:string, itemType:number,itemDate:Date | null):boolean{
+  public validateForm(itemName:string, itemType:number,itemDate:Date | null):boolean{
     let isvalid = true;
     
     // ItemName
@@ -71,6 +71,9 @@ export class AddComponent {
     if(!itemType){
       this.itemTypeError='Item type is required!';
       isvalid = false;
+    }else if(!this.isValudItemType(itemType)){
+      this.itemTypeError='Item type must be numeric only!';
+        isvalid=false;
     }
 
     // ItemDate
@@ -89,10 +92,17 @@ export class AddComponent {
     this.itemDateError='';
   }
 
+  //Function Clear Item variables
   private resetItem(): void {
     this.itemId = 0;
     this.itemName = "";
     this.itemType = 0;
     this.itemDate = null;
   }
+
+  //Function Validate itemType
+  private isValudItemType(type:number){
+    const typeRegex=/^[0-9]{1,30}$/;
+    return typeRegex.test(type.toString());
+}
 }

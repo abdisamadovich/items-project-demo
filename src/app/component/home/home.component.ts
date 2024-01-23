@@ -3,7 +3,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Item } from '../../services/models/items/item';
 import { ItemService } from '../../services/item.service';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { PaginationData } from '../../services/models/common/pagination.data';
 import { LoadingComponent } from '../loading/loading.component';
 import { ToastrService } from 'ngx-toastr';
@@ -17,6 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class HomeComponent implements OnInit{
   constructor(private toastr: ToastrService) {};
+  private router: Router = inject(Router);
   
   public page_size: number = 7;
   //For ModalWindow Variables
@@ -42,6 +43,11 @@ export class HomeComponent implements OnInit{
 
   //Get items
   public ngOnInit(): void {
+    const token = localStorage.getItem('access_token');
+    if(!token){
+      this.router.navigate(['/login']);
+      return
+    }
     this.getItems(this.currentPage);
   }
 

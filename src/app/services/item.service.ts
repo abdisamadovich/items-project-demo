@@ -18,9 +18,7 @@ export class ItemService{
         return this.itemApiService.getItems(pageNumber)
             .pipe(map(response => {
                 const result = new ItemGetAll();
-                result.items = response.items.map(apiModel => this.toModel(apiModel));
-                console.log(response.paginationMetaData);
-                
+                result.items = response.items.map(apiModel => this.toModel(apiModel));                
                 result.paginationMetaData = this.toPaginationMetaData(response.paginationMetaData);
                 return result;
             }));
