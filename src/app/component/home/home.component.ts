@@ -80,11 +80,18 @@ export class HomeComponent implements OnInit{
     this.modalDelete = false;
     this.loading = false;
   }
-
+  
   // Edit Modal Function
-  public showModalEdit(itemId:number): void {
-    this.itemId=itemId;
-    this.modalEdit = true;
+  public showModalEdit(itemId:number,
+      itemName:string,
+      itemType:number,
+      itemDate:Date
+    ): void {
+      this.modalEdit = true;
+      this.itemId = itemId;
+      this.itemName = itemName;
+      this.itemType = itemType;
+      this.itemDate = itemDate
   }
   public hideModalEdit(): void {
     this.modalEdit = false;

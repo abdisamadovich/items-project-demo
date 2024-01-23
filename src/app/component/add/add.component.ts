@@ -45,13 +45,16 @@ export class AddComponent {
       next: response => {
         this.toastr.success("Success add item!");
         this.loading = false;
+        this.resetItem();
       },
       error: err => {
         this.toastr.warning("Error during add!"); 
         this.loading = false; 
+        this.resetItem();
       }
     });
       this.modalAddVisible = false; 
+      this.resetItem();
   }
 
   // validateForm
@@ -79,10 +82,17 @@ export class AddComponent {
     return isvalid;
   }
 
-  //FUnction Clear error variables
+  //Function Clear error variables
   private resetErrors(): void {
     this.itemNameError = '';
     this.itemTypeError = '';
     this.itemDateError='';
+  }
+
+  private resetItem(): void {
+    this.itemId = 0;
+    this.itemName = "";
+    this.itemType = 0;
+    this.itemDate = null;
   }
 }
