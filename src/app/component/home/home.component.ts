@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit{
   public items: Item[] = [];
 
   //For Edit, Delete, Add Variables
-  public itemId:number=0;
+  public itemId:number = 0;
   public itemType: number = 0;
   public itemName: string = "";
   public itemDate: any =new Date();
@@ -37,6 +37,7 @@ export class HomeComponent implements OnInit{
   //For Pagination Variables
   public currentPage: number = 1;
   public totalPages: number = 1;
+  public itemNumber:number = 0;
   public pagenationData:PaginationData=new PaginationData();
 
   //Get items
@@ -58,8 +59,9 @@ export class HomeComponent implements OnInit{
   }
 
   //Delete Modal Function
-  public showDeleteModal(itemId: number): void {
+  public showDeleteModal(itemId: number,itemNumber:number): void {
     this.itemId=itemId;
+    this.itemNumber = itemNumber;
     this.modalDelete = true;
   }
   public hideDeleteModal(): void {
@@ -69,6 +71,9 @@ export class HomeComponent implements OnInit{
     this.loading = true;
     this.itemService.deleteItem(this.itemId).subscribe({
       next: (response) => {
+        if(this.itemNumber%7==1){
+          this.currentPage -= 1;
+        }
         this.getItems(this.currentPage);
         this.toastr.success("Success delete item!");  
       },

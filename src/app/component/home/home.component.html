@@ -26,7 +26,7 @@
                       <td>
                           <div class="d-grid gap-2 d-md-block">
                               <button class="btn btn-outline-warning m-1" type="button" (click)="showModalEdit(item.itemId,item.itemName,item.itemType,item.itemDate)">Edit</button>
-                              <button class="btn btn-outline-danger " type="button" (click)="showDeleteModal(item.itemId)">Delete</button>
+                              <button class="btn btn-outline-danger " type="button" (click)="showDeleteModal(item.itemId,i + 1+(currentPage-1)*page_size)">Delete</button>
                           </div>
                       </td>
                   </tr>
