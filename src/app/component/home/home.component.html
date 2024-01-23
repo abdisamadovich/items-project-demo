@@ -38,7 +38,7 @@
       </form>
     </div>
 
-    <div class="mt-3">
+    <div *ngIf="1<totalPages" class="mt-3">
       <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
           <li class="page-item" [class.disabled]="currentPage === 1">
@@ -95,17 +95,19 @@
         <form>
           <div class="form-group">
             <label for="name">Name:</label>
-            <input type="text" class="form-control" id="name" placeholder="Enter your name" [(ngModel)]="itemName"
-              name="itemName">
+            <input type="text" class="form-control" id="name" placeholder="Enter your name" [(ngModel)]="itemName" name="itemName" required="itemName">
+            <div class="text-danger error-message" *ngIf="itemNameError">{{ itemNameError }}</div>
           </div>
           <div class="form-group">
             <label for="type">Type:</label>
             <input type="text" class="form-control" id="type" placeholder="Enter the type" [(ngModel)]="itemType"
-              name="itemType">
+              name="itemType" required="itemType">
+            <div class="text-danger error-message" *ngIf="itemTypeError">{{ itemTypeError }}</div>
           </div>
           <div class="form-group">
             <label for="date" class="sr-only">Date</label>
-            <input type="datetime-local" class="form-control" id="date" required [(ngModel)]="itemDate" name="itemDate">
+            <input type="datetime-local" class="form-control" id="date" required [(ngModel)]="itemDate" name="itemDate" required="itemDate">
+            <div class="text-danger error-message" *ngIf="itemDateError">{{ itemDateError }}</div>
           </div>
           <button type="button" class="m-1 btn btn-primary" data-dismiss="modal" (click)="hideModalEdit()">No</button>
           <button class="btn btn-success" type="submit" (click)="saveEditChanges()">Yes</button>

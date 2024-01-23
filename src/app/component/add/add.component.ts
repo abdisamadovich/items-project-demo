@@ -58,7 +58,7 @@ export class AddComponent {
   }
 
   // validateForm
-  public validateForm(itemName:string, itemType:number,itemDate:Date | null):boolean{
+  private validateForm(itemName:string, itemType:number,itemDate:Date | null):boolean{
     let isvalid = true;
     
     // ItemName
@@ -104,5 +104,5 @@ export class AddComponent {
   private isValudItemType(type:number){
     const typeRegex=/^[0-9]{1,30}$/;
     return typeRegex.test(type.toString());
-}
+  }
 }

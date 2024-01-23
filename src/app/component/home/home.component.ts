@@ -39,7 +39,13 @@ export class HomeComponent implements OnInit{
   public currentPage: number = 1;
   public totalPages: number = 1;
   public itemNumber:number = 0;
+  public totalItems:number=0;
   public pagenationData:PaginationData=new PaginationData();
+
+  //Variables For Error
+  public itemNameError:string='';
+  public itemTypeError:string='';
+  public itemDateError:string='';
 
   //Get items
   public ngOnInit(): void {
@@ -58,6 +64,7 @@ export class HomeComponent implements OnInit{
         this.items = response.items;
         this.pagenationData=response.paginationMetaData;
         this.totalPages=response.paginationMetaData.totalPages;
+        this.totalItems=response.paginationMetaData.totalItems;
         this.loading = false;
       }
     )
@@ -77,7 +84,7 @@ export class HomeComponent implements OnInit{
     this.loading = true;
     this.itemService.deleteItem(this.itemId).subscribe({
       next: (response) => {
-        if(this.itemNumber%7==1){
+        if(this.totalItems%7==1){
           this.currentPage -= 1;
         }
         this.getItems(this.currentPage);
@@ -108,6 +115,10 @@ export class HomeComponent implements OnInit{
   }
   public saveEditChanges(): void {
     this.loading = true;
+    //Validate LoginForm
+    if (!this.validateForm(this.itemName,this.itemType,this.itemDate)) {
+      return;
+    }  
     const itemModel = new Item();
         itemModel.itemId=this.itemId;        
         itemModel.itemName=this.itemName;
@@ -146,5 +157,39 @@ export class HomeComponent implements OnInit{
   get pageNumbers(): number[] {
     return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
+
+  // validateForm
+  private validateForm(itemName:string, itemType:number,itemDate:Date | null):boolean{
+    let isvalid = true;
+    
+    // ItemName
+    if(!itemName){
+      this.itemNameError = "Item name is required!";
+      isvalid = false;
+    }
+
+    // ItemType
+    if(!itemType){
+      this.itemTypeError='Item type is required!';
+      isvalid = false;
+    }else if(!this.isValudItemType(itemType)){
+      this.itemTypeError='Item type must be numeric only!';
+        isvalid=false;
+    }
+
+    // ItemDate
+    if(!itemDate){
+      this.itemDateError='Item date is requred!'
+      isvalid = false;
+    }
+    this.loading = false;
+    return isvalid;
+  }
+
+  //Function Validate itemType
+  private isValudItemType(type:number){
+    const typeRegex=/^[0-9]{1,30}$/;
+    return typeRegex.test(type.toString());
+}
 }
 
