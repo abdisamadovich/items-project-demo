@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { Item } from '../../services/models/items/item';
 import { ItemService } from '../../services/item.service';
@@ -18,7 +18,7 @@ import { ToastrService } from 'ngx-toastr';
 export class HomeComponent implements OnInit{
   constructor(private toastr: ToastrService) {};
   
-  public page_size: number = 10;
+  public page_size: number = 7;
   //For ModalWindow Variables
   public modalEdit: boolean = false;
   public modalDelete: boolean = false;
@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit{
   public itemId:number=0;
   public itemType: number = 0;
   public itemName: string = "";
-  public itemDate: Date =new Date();
+  public itemDate: any =new Date();
 
   //For Pagination Variables
   public currentPage: number = 1;
@@ -55,7 +55,6 @@ export class HomeComponent implements OnInit{
       }
     )
     }, 1000);
-    
   }
 
   //Delete Modal Function
@@ -91,7 +90,7 @@ export class HomeComponent implements OnInit{
       this.itemId = itemId;
       this.itemName = itemName;
       this.itemType = itemType;
-      this.itemDate = itemDate
+      this.itemDate = formatDate(itemDate,"yyyy-MM-ddThh:mm","en");
   }
   public hideModalEdit(): void {
     this.modalEdit = false;
@@ -117,7 +116,6 @@ export class HomeComponent implements OnInit{
   }
 
   //Pagination Helper Function
-
   public changePage(page: number): void {
     if (page < 1 || page > this.totalPages) {
       return;

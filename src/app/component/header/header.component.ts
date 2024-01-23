@@ -48,5 +48,8 @@ export class HeaderComponent implements OnInit{
     if(!token){
       this.router.navigate(['/login'])
     }
+    else{
+      this.router.navigate(['/home'])
+    }
   }
 }
