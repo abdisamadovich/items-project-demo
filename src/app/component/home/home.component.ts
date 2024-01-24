@@ -15,11 +15,14 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './home.component.html',
   styleUrl: './home.component.less'
 })
+
 export class HomeComponent implements OnInit{
+
   constructor(private toastr: ToastrService) {};
   private router: Router = inject(Router);
   
   public page_size: number = 7;
+
   //For ModalWindow Variables
   public modalEdit: boolean = false;
   public modalDelete: boolean = false;
@@ -29,7 +32,7 @@ export class HomeComponent implements OnInit{
   private itemService : ItemService = inject(ItemService);
   public items: Item[] = [];
 
-  //For Edit, Delete, Add Variables
+  //For Edit, Delete Variables
   public itemId:number = 0;
   public itemType: number = 0;
   public itemName: string = "";
@@ -39,13 +42,13 @@ export class HomeComponent implements OnInit{
   public currentPage: number = 1;
   public totalPages: number = 1;
   public itemNumber:number = 0;
-  public totalItems:number=0;
-  public pagenationData:PaginationData=new PaginationData();
+  public totalItems:number = 0;
+  public pagenationData:PaginationData = new PaginationData();
 
   //Variables For Error
-  public itemNameError:string='';
-  public itemTypeError:string='';
-  public itemDateError:string='';
+  public itemNameError:string = '';
+  public itemTypeError:string = '';
+  public itemDateError:string = '';
 
   //Get items
   public ngOnInit(): void {
@@ -68,12 +71,12 @@ export class HomeComponent implements OnInit{
         this.loading = false;
       }
     )
-    }, 1000);
+    }, 200);
   }
 
   //Delete Modal Function
   public showDeleteModal(itemId: number,itemNumber:number): void {
-    this.itemId=itemId;
+    this.itemId = itemId;
     this.itemNumber = itemNumber;
     this.modalDelete = true;
   }
@@ -84,11 +87,11 @@ export class HomeComponent implements OnInit{
     this.loading = true;
     this.itemService.deleteItem(this.itemId).subscribe({
       next: (response) => {
+        this.toastr.success("Success delete item!"); 
         if(this.totalItems%7==1){
           this.currentPage -= 1;
         }
-        this.getItems(this.currentPage);
-        this.toastr.success("Success delete item!");  
+        this.getItems(this.currentPage);   
       },
       error: (err) => {
         this.toastr.warning("Error during delete!");

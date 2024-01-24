@@ -18,8 +18,8 @@
           <tbody class="table-group-divider">
             <!-- Loop through items -->
             <tr *ngFor="let item of items;let i = index">
-              <th scope="row">{{ i + 1+(currentPage-1)*page_size }}</th>
-              <td>{{item.itemId }}</td>
+              <th scope="row">{{ i + 1 + (currentPage-1) * page_size }}</th>
+              <td>{{item.itemId}}</td>
               <td>{{item.itemName}}</td>
               <td>{{item.itemType}}</td>
               <td>{{item.itemDate | date:"YYYY-MM-dd hh:mm" }}</td>
@@ -32,7 +32,6 @@
                 </div>
               </td>
             </tr>
-
           </tbody>
         </table>
       </form>
@@ -78,16 +77,12 @@
   </div>
 </div>
 
-
 <!-- Edit Items -->
 <div *ngIf="modalEdit" class="modal" tabindex="-1" style="display: block;" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="myModalLabel">Edit Item</h5>
-        <!-- <button type="button" class="close"(click)="hideModalEdit()" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button> -->
         <button type="button" (click)="hideModalEdit()" class="btn-close" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -95,7 +90,8 @@
         <form>
           <div class="form-group">
             <label for="name">Name:</label>
-            <input type="text" class="form-control" id="name" placeholder="Enter your name" [(ngModel)]="itemName" name="itemName" required="itemName">
+            <input type="text" class="form-control" id="name" placeholder="Enter your name" [(ngModel)]="itemName" 
+              name="itemName" required="itemName">
             <div class="text-danger error-message" *ngIf="itemNameError">{{ itemNameError }}</div>
           </div>
           <div class="form-group">
@@ -106,7 +102,8 @@
           </div>
           <div class="form-group">
             <label for="date" class="sr-only">Date</label>
-            <input type="datetime-local" class="form-control" id="date" required [(ngModel)]="itemDate" name="itemDate" required="itemDate">
+            <input type="datetime-local" class="form-control" id="date" required [(ngModel)]="itemDate" name="itemDate" 
+              required="itemDate">
             <div class="text-danger error-message" *ngIf="itemDateError">{{ itemDateError }}</div>
           </div>
           <button type="button" class="m-1 btn btn-primary" data-dismiss="modal" (click)="hideModalEdit()">No</button>

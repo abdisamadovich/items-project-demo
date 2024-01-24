@@ -4,22 +4,21 @@
     <form id="add-item-form" class="form-inline mt-3">
       <div class="form-group mx-sm-3 mb-2">
         <label for="name" class="sr-only">Name</label>
-        <input type="text" class="form-control" [(ngModel)]="itemName" name="itemName" id="name" placeholder="Name"
-          required>
+        <input type="text" class="form-control" [(ngModel)]="itemName" name="itemName" placeholder="Name" id="name"
+          required="itemName">
         <div class="text-danger error-message" *ngIf="itemNameError">{{ itemNameError }}</div>
       </div>
       <div class="form-group mx-sm-3 mb-2">
         <label for="type" class="sr-only">Type</label>
-        <input type="text" class="form-control" [(ngModel)]="itemType" name="itemType" id="type" placeholder="Type"
+        <input type="text" class="form-control" [(ngModel)]="itemType" name="itemType" placeholder="Type" id="type"
           required>
         <div class="text-danger error-message" *ngIf="itemTypeError">{{ itemTypeError }}</div>
       </div>
       <div class="form-group mx-sm-3 mb-2">
         <label for="date" class="sr-only">Date</label>
-        <input type="datetime-local" class="form-control" [(ngModel)]="itemDate" name="itemDate" id="date" required>
+        <input type="datetime-local" class="form-control" [(ngModel)]="itemDate" name="itemDate" id="date" required="itemDate">
         <div class="text-danger error-message" *ngIf="itemDateError">{{ itemDateError }}</div>
       </div>
-
       <button type="submit" class="btn btn-primary mb-2" (click)="saveAddChanges()">Add</button>
     </form>
   </div>

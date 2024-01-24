@@ -16,12 +16,15 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './add.component.less'
 })
 export class AddComponent {
+
   public modalAddVisible: boolean=false;
-  private itemService:ItemService=inject(ItemService);
+
+  private itemService: ItemService = inject(ItemService);
   private toastr: ToastrService = inject(ToastrService);
 
   public loading: boolean = false;
-  public itemId:number=0;
+
+  public itemId: number=0;
   public itemType: number = 0;
   public itemName: string = "";
   public itemDate: Date | null = null;
@@ -34,13 +37,15 @@ export class AddComponent {
   public saveAddChanges(): void {
     this.loading = true;
     this.resetErrors();
-    if (!this.validateForm(this.itemName,this.itemType,this.itemDate)) {
-      return;
-    }
-    const itemCreateModel = new ItemCreate();        
+
+    if (!this.validateForm(this.itemName,this.itemType,this.itemDate)) return
+
+    const itemCreateModel = new ItemCreate(); 
+
     itemCreateModel.itemName=this.itemName;
     itemCreateModel.itemType=this.itemType;
     itemCreateModel.itemDate=this.itemDate;
+
     this.itemService.addItem(itemCreateModel).subscribe({
       next: response => {
         this.toastr.success("Success add item!");
@@ -58,7 +63,7 @@ export class AddComponent {
   }
 
   // validateForm
-  private validateForm(itemName:string, itemType:number,itemDate:Date | null):boolean{
+  private validateForm(itemName:string, itemType:number,itemDate:Date | null):boolean {
     let isvalid = true;
     
     // ItemName
@@ -71,17 +76,18 @@ export class AddComponent {
     if(!itemType){
       this.itemTypeError='Item type is required!';
       isvalid = false;
-    }else if(!this.isValudItemType(itemType)){
+    }else if(!this.isValidItemType(itemType)){
       this.itemTypeError='Item type must be numeric only!';
         isvalid=false;
     }
 
     // ItemDate
     if(!itemDate){
-      this.itemDateError='Item date is requred!'
+      this.itemDateError='Item date is required!'
       isvalid = false;
     }
     this.loading = false;
+
     return isvalid;
   }
 
@@ -89,7 +95,7 @@ export class AddComponent {
   private resetErrors(): void {
     this.itemNameError = '';
     this.itemTypeError = '';
-    this.itemDateError='';
+    this.itemDateError = '';
   }
 
   //Function Clear Item variables
@@ -101,8 +107,9 @@ export class AddComponent {
   }
 
   //Function Validate itemType
-  private isValudItemType(type:number){
+  private isValidItemType(type:number){
     const typeRegex=/^[0-9]{1,30}$/;
+
     return typeRegex.test(type.toString());
   }
 }

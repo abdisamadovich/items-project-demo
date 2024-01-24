@@ -15,26 +15,23 @@ import { LoadingComponent } from '../loading/loading.component';
   templateUrl: './register.component.html',
   styleUrl: './register.component.less'
 })
+
 export class RegisterComponent {
 
-  //Ko'rsatkichlar
-  public firstName: string = '';
-  public lastName: string = '';
-  public email: string = '';
-  public password: string = '';
-  public loading: boolean = false;
-
-  //Komponent xususiyatlari
   private userService: UserService = inject(UserService);
   private toastr: ToastrService = inject(ToastrService);
   private router: Router = inject(Router);
 
-  //Methodlar
+  public firstName: string = '';
+  public lastName: string = '';
+  public email: string = '';
+  public password: string = '';
+  public loading: boolean = false;  
+
   public registerUser():void{
     this.loading=true;
-    if (!this.validateInputs()) {
-      return;
-    }
+    if (!this.validateInputs()) return;
+    
     const userRegister = new UserRegister();
     userRegister.firstName = this.firstName;
     userRegister.lastName = this.lastName;

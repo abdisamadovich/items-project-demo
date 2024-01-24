@@ -15,7 +15,9 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './login.component.html',
   styleUrl: './login.component.less'
 })
+
 export class LoginComponent {
+
   private userService:UserService = inject(UserService)
   private toastr: ToastrService = inject(ToastrService);
   private router: Router = inject(Router);
@@ -50,8 +52,12 @@ export class LoginComponent {
           this.toastr.warning("No such email user found!");
           this.loading = false;
         }
+        else if(err.status==422){
+          this.toastr.warning("The password is incorrect!")
+          this.loading = false;
+        } 
         else{
-          this.toastr.warning("Error during login!");
+          this.toastr.error("Error during login!");
           this.loading = false;
         }
       }
@@ -62,6 +68,7 @@ export class LoginComponent {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const lastDotIndex = this.email.lastIndexOf('.');
     const charsAfterLastDot = this.email.slice(lastDotIndex + 1);
+    
     setTimeout(() => {
       this.loading=false;
     }, 1000);

@@ -8,8 +8,8 @@ import { AuthenticationModel } from "./models/user/authentication.model";
 
 @Injectable({providedIn:"root"})
 export class UserApiService{
+    
     private apiUrl = "https://localhost:7274/api/auth"; //Api manzil
-
     private client : HttpClient = inject(HttpClient);
 
     public registerUser(user:UserRegisterModel): Observable<any>{

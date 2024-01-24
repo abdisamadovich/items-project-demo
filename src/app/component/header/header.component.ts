@@ -6,12 +6,12 @@ import { AuthenticationOrchestrator } from '../models/authentication-orchestrato
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterModule,CommonModule],
+  imports: [CommonModule,RouterModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.less'
 })
+
 export class HeaderComponent implements OnInit{
-  // shuni surayman
   private router: Router = inject(Router)
 
   public modalLogOutVisible: boolean = false;
@@ -35,9 +35,7 @@ export class HeaderComponent implements OnInit{
   ngOnInit(): void {
     const token = localStorage.getItem('access_token');
     this.check_token()
-    if (token) {
-      this.isLoggedIn = true;
-    }
+    if (token) this.isLoggedIn = true;
     AuthenticationOrchestrator.signaller.subscribe((x) => {
       this.isLoggedIn = x;
     });
@@ -45,11 +43,7 @@ export class HeaderComponent implements OnInit{
 
   public check_token(): void{
     const token = localStorage.getItem('access_token');
-    if(!token){
-      this.router.navigate(['/login'])
-    }
-    else{
-      this.router.navigate(['/home'])
-    }
+    if(!token) this.router.navigate(['/login'])
+    else this.router.navigate(['/home'])
   }
 }
